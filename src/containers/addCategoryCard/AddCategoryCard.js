@@ -8,7 +8,7 @@ const AddCategoryCard = ({ hidden, toggleHidden }) => {
       return (
         <div className={styles.wrapper}>
           <div onClick={() => toggleHidden(true)} className={styles.card}>
-            hejjj
+            hejjjsanpådig
           </div>
         </div>
       )
