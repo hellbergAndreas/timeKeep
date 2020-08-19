@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {}
+
+code {}
+
+.content {
+  width: 1400px;
+  margin-right: auto;
+  margin-left: auto;
+}
