@@ -19,9 +19,15 @@ const CategoryDisplay = ({ changeCategory, activeCategory, time }) => {
 
   const renderCategoryList = (cat) => {
     if (cat === activeCategory) {
-      return (<div className={styles.subCategoryDisplay}>
-        <CategoryItemList category={activeCategory} subCategory={time}></CategoryItemList>
-      </div>)
+      return (
+        <div className={styles.subCategoryDisplay}>
+          <CategoryItemList
+            activeCategory={activeCategory}
+            subCategory={time}
+            click={changeCategory}
+          ></CategoryItemList>
+        </div>
+      )
     }
   }
 
@@ -29,12 +35,16 @@ const CategoryDisplay = ({ changeCategory, activeCategory, time }) => {
     <div className={styles.section}>
       <div className={styles.categoryDisplay}>
         {categorys.map((cat) => {
-          return <div>
+          return (
             <div>
-              <Button click={() => changeCategory({ category: cat })}>{cat}</Button>
+              <div>
+                <Button click={() => changeCategory({ activeCategory: cat })}>
+                  {cat}
+                </Button>
+              </div>
+              {renderCategoryList(cat)}
             </div>
-            {renderCategoryList(cat)}
-          </div>
+          )
         })}
       </div>
     </div>
@@ -46,8 +56,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 const mapStateToProps = (state) => ({
   activeCategory: state.activeCategory.activeCategory,
-  time: state.time
-
+  time: state.time,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryDisplay)

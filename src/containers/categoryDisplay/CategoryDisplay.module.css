@@ -1,11 +1,21 @@
 .categoryDisplay {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  position: relative;
 }
+
 .section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.subCategoryDisplay {
+  margin-top: 20px;
+  position: absolute;
+  display: inline block;
+  z-index: 2;
+  width: 100%;
 }

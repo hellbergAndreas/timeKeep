@@ -1,7 +1,6 @@
 const INITIAL_STATE = {
   activeCategory: null,
-  subCategory: null
-
+  subCategory: null,
 }
 
 const categoryReducer = (state = INITIAL_STATE, action) => {
@@ -9,8 +8,8 @@ const categoryReducer = (state = INITIAL_STATE, action) => {
     case "CHANGE_CATEGORY":
       return {
         ...state,
-        activeCategory: action.payload.category,
-        subCategory: action.payload.subCategory
+        activeCategory: action.payload.activeCategory,
+        subCategory: action.payload.subCategory,
       }
 
     default:
