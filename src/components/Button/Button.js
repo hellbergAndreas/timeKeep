@@ -5,7 +5,7 @@ const Button = ({ color, size, children, click }) => {
     <button
       onClick={() => click()}
       style={{ color: color }}
-      className={styles.button}
+      className={styles.btnPlay}
     >
       {children}
     </button>

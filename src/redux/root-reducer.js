@@ -6,5 +6,6 @@ import timeReducer from './timeReducer/time.reducer'
 export default combineReducers({
   hidden: toggleHiddenReducer,
   activeCategory: changeCategory,
+  subCategory: changeCategory,
   time: timeReducer
 })
