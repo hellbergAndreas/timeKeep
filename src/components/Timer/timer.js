@@ -1,18 +1,26 @@
 import React, { useEffect } from "react"
-import Button from "../Button/Button"
+import Button, { ButtonShape } from "../Button/Button"
 import { connect } from "react-redux"
 import { addTime } from "../../redux/timeReducer/time.action"
 import StartTimerButton from "../startTimerButton/StartTimerButton"
 import styles from "./timer.module.css"
 
-const Timer = ({ activeCategory, subCategory, addTime }) => {
+const Timer = ({ category: { subCategory, activeCategory }, addTime }) => {
+  console.log(activeCategory)
   return (
     <div className={styles.timer}>
-      <StartTimerButton
-        click={() => addTime({ subCategory, activeCategory, time: 1 })}
+      <Button
+        shape={ButtonShape.ROUND_LARGE}
+        click={() =>
+          addTime({
+            activeCategory,
+            subCategory,
+            time: 1,
+          })
+        }
       >
         ADD TIME
-      </StartTimerButton>
+      </Button>
     </div>
   )
 }
@@ -21,7 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
   addTime: (time) => dispatch(addTime(time)),
 })
 const mapStateToProps = (state) => ({
-  activeCategory: state.activeCategory.activeCategory,
-  subCategory: state.subCategory.subCategory,
+  category: state.category,
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Timer)

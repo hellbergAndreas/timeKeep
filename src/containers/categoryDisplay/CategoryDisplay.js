@@ -2,21 +2,11 @@ import React, { useState, useEffect } from "react"
 import styles from "./CategoryDisplay.module.css"
 import { connect } from "react-redux"
 import { changeCategory } from "../../redux/categoryReducer/category.action"
-import Button from "../../components/Button/Button"
+import Button, { ButtonShape } from "../../components/Button/Button"
 import CategoryItemList from "../CategoryItemList/CategoryItemList"
+import Plus from "../../components/plus/Plus"
 
-const cateGORYData = { work: [2], music: [3], training: [1] }
 const CategoryDisplay = ({ changeCategory, activeCategory, time }) => {
-  const [categorys, setCategorys] = useState([])
-
-  useEffect(() => {
-    Object.keys(cateGORYData).map((cat) => {
-      return setCategorys((prevState) => {
-        return [...prevState, cat]
-      })
-    })
-  }, [])
-
   const renderCategoryList = (cat) => {
     if (cat === activeCategory) {
       return (
@@ -24,21 +14,37 @@ const CategoryDisplay = ({ changeCategory, activeCategory, time }) => {
           <CategoryItemList
             activeCategory={activeCategory}
             subCategory={time}
-            click={changeCategory}
+            changeCategory={changeCategory}
           ></CategoryItemList>
         </div>
       )
     }
   }
+  const handleCategoryButton = (cat) => {
+    if (activeCategory === cat) {
+      changeCategory({ activeCategory: null })
+    } else {
+      changeCategory({ activeCategory: cat })
+    }
+  }
 
   return (
     <div className={styles.section}>
+      <div className={styles.addBtn}>
+        <Button style={{ padding: "10px" }} shape={ButtonShape.ROUND_SMALL}>
+          {" "}
+          <Plus></Plus>
+        </Button>
+      </div>
       <div className={styles.categoryDisplay}>
-        {categorys.map((cat) => {
+        {Object.keys(time).map((cat) => {
           return (
             <div>
               <div>
-                <Button click={() => changeCategory({ activeCategory: cat })}>
+                <Button
+                  className={activeCategory === cat ? "active" : ""}
+                  click={() => handleCategoryButton(cat)}
+                >
                   {cat}
                 </Button>
               </div>
@@ -55,7 +61,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeCategory: (category) => dispatch(changeCategory(category)),
 })
 const mapStateToProps = (state) => ({
-  activeCategory: state.activeCategory.activeCategory,
+  activeCategory: state.category.activeCategory,
   time: state.time,
 })
 

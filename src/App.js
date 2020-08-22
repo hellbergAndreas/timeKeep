@@ -5,6 +5,8 @@ import styles from "./index.module.css"
 import CategoryDisplay from "./containers/categoryDisplay/CategoryDisplay"
 import AddCategoryCard from "./containers/addCategoryCard/AddCategoryCard"
 import Timer from "./components/Timer/timer"
+import Button, { ButtonShape } from "./components/Button/Button"
+import Plus from "./components/plus/Plus"
 
 function App() {
   return (

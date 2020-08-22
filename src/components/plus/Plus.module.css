@@ -1,0 +1,38 @@
+.container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.horizontal {
+  height: 100%;
+  width: 5px;
+}
+
+.vertical {
+  height: 5px;
+  width: 100%;
+}
+
+.horizontal,
+.vertical {
+  border-radius: 5px;
+  position: absolute;
+  background-color: rgb(42, 217, 89);
+}
+
+.verticalPressed {
+  width: 90%;
+}
+
+.horizontalPressed {
+  height: 90%;
+}
+
+.verticalPressed,
+.horizontalPressed {
+  background-color: rgb(34, 158, 67);
+}
