@@ -9,10 +9,9 @@ const INITIAL_STATE = {
     production: 0,
     songwriting: 0,
   },
-  training: {
-    cycling: 0,
-    running: 0,
-    weights: 0,
+  misc: {
+    youtube: 0,
+    web: 0,
   },
 }
 

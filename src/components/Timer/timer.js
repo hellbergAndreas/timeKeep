@@ -4,13 +4,19 @@ import { connect } from "react-redux"
 import { addTime } from "../../redux/timeReducer/time.action"
 
 import styles from "./timer.module.css"
+import { startStop } from "../../redux/isRunningReducer/isRunning.action"
 
-const Timer = ({ category: { subCategory, activeCategory }, addTime }) => {
+const Timer = ({
+  category: { subCategory, activeCategory },
+  addTime,
+  isRunning,
+  startStop,
+}) => {
   const [intervalId, setIntervalId] = useState(null)
-  const [running, setRunning] = useState(false)
 
+  console.log(isRunning)
   useEffect(() => {
-    if (running) {
+    if (isRunning) {
       setIntervalId(
         setInterval(
           () => addTime({ activeCategory, subCategory, time: 1 }),
@@ -19,17 +25,16 @@ const Timer = ({ category: { subCategory, activeCategory }, addTime }) => {
       )
     } else {
       clearInterval(intervalId)
-      console.log("stoppint interval")
     }
-  }, [running])
+  }, [isRunning])
 
   const handleClick = () => {
-    setRunning(!running)
+    startStop(!isRunning)
   }
   return (
     <div className={styles.timer}>
       <Button shape={ButtonShape.ROUND_LARGE} click={() => handleClick()}>
-        ADD TIME
+        {isRunning ? "STOP" : "START"}
       </Button>
     </div>
   )
@@ -37,8 +42,10 @@ const Timer = ({ category: { subCategory, activeCategory }, addTime }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addTime: (time) => dispatch(addTime(time)),
+  startStop: (isRunning) => dispatch(startStop(isRunning)),
 })
 const mapStateToProps = (state) => ({
   category: state.category,
+  isRunning: state.isRunning.isRunning,
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Timer)

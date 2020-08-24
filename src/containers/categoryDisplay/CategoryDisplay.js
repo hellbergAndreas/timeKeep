@@ -33,9 +33,9 @@ const CategoryDisplay = ({
   const handleCategoryButton = (cat) => {
     if (activeCategory === cat) {
       changeCategory({ activeCategory: null })
-      changeSubCategory({ subCategory: null })
     } else {
       changeCategory({ activeCategory: cat })
+      changeSubCategory({ subCategory: null })
     }
   }
 
