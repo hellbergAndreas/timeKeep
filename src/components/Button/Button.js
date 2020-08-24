@@ -19,7 +19,7 @@ const Button = ({
     <button
       style={style}
       onClick={() => click()}
-      className={cx(className, styles.btn, styles[shape])}
+      className={cx(styles[className], styles.btn, styles[shape])}
     >
       {children}
     </button>

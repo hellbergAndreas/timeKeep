@@ -23,3 +23,6 @@
 .addBtn {
   margin-top: 40px;
 }
+.active {
+  color: red;
+}
