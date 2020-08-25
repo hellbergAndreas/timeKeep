@@ -14,7 +14,6 @@ const Timer = ({
 }) => {
   const [intervalId, setIntervalId] = useState(null)
 
-  console.log(isRunning)
   useEffect(() => {
     if (isRunning) {
       setIntervalId(
@@ -33,7 +32,11 @@ const Timer = ({
   }
   return (
     <div className={styles.timer}>
-      <Button shape={ButtonShape.ROUND_LARGE} click={() => handleClick()}>
+      <Button
+        timer={true}
+        shape={ButtonShape.ROUND_LARGE}
+        click={() => handleClick()}
+      >
         {isRunning ? "STOP" : "START"}
       </Button>
     </div>

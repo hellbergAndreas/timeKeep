@@ -15,6 +15,7 @@ const CategoryDisplay = ({
   activeCategory,
   subCategory,
   time,
+  isRunning,
 }) => {
   const renderCategoryList = (cat) => {
     if (cat === activeCategory) {
@@ -30,12 +31,14 @@ const CategoryDisplay = ({
       )
     }
   }
+
   const handleCategoryButton = (cat) => {
+    console.log("flkjsdlkjf")
     if (activeCategory === cat) {
       changeCategory({ activeCategory: null })
+      changeSubCategory({ subCategory: null })
     } else {
       changeCategory({ activeCategory: cat })
-      changeSubCategory({ subCategory: null })
     }
   }
 
@@ -53,6 +56,7 @@ const CategoryDisplay = ({
             <div>
               <div>
                 <Button
+                  canBeDeactivated={true}
                   className={activeCategory === cat ? "active" : ""}
                   click={() => handleCategoryButton(cat)}
                 >
@@ -76,6 +80,7 @@ const mapStateToProps = (state) => ({
   activeCategory: state.category.activeCategory,
   subCategory: state.category.subCategory,
   time: state.time,
+  isRunning: state.isRunning.isRunning,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryDisplay)
