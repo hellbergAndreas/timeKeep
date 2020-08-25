@@ -18,8 +18,6 @@ const Button = ({
   isRunning,
   canBeDeactivated,
 }) => {
-  console.log(isRunning)
-
   return (
     <button
       style={style}

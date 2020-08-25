@@ -8,6 +8,7 @@ import {
 import Button, { ButtonShape } from "../../components/Button/Button"
 import CategoryItemList from "../CategoryItemList/CategoryItemList"
 import Plus from "../../components/plus/Plus"
+import AddCategoryCard from "../addCategoryCard/AddCategoryCard"
 
 const CategoryDisplay = ({
   changeCategory,
@@ -15,8 +16,9 @@ const CategoryDisplay = ({
   activeCategory,
   subCategory,
   time,
-  isRunning,
 }) => {
+  const [hidden, setHidden] = useState(true)
+
   const renderCategoryList = (cat) => {
     if (cat === activeCategory) {
       return (
@@ -32,8 +34,15 @@ const CategoryDisplay = ({
     }
   }
 
+  const renderCategoryCard = () => {
+    if (!hidden) {
+      return (
+        <AddCategoryCard click={() => setHidden(!hidden)}></AddCategoryCard>
+      )
+    }
+  }
+
   const handleCategoryButton = (cat) => {
-    console.log("flkjsdlkjf")
     if (activeCategory === cat) {
       changeCategory({ activeCategory: null })
       changeSubCategory({ subCategory: null })
@@ -45,11 +54,16 @@ const CategoryDisplay = ({
   return (
     <div className={styles.section}>
       <div className={styles.addBtn}>
-        <Button style={{ padding: "10px" }} shape={ButtonShape.ROUND_SMALL}>
-          {" "}
+        <Button
+          click={() => setHidden(!hidden)}
+          style={{ padding: "10px" }}
+          shape={ButtonShape.ROUND_SMALL}
+        >
           <Plus></Plus>
         </Button>
       </div>
+
+      {renderCategoryCard()}
       <div className={styles.categoryDisplay}>
         {Object.keys(time).map((cat) => {
           return (
@@ -80,7 +94,6 @@ const mapStateToProps = (state) => ({
   activeCategory: state.category.activeCategory,
   subCategory: state.category.subCategory,
   time: state.time,
-  isRunning: state.isRunning.isRunning,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryDisplay)

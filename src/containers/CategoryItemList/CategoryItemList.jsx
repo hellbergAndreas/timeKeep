@@ -11,7 +11,6 @@ const CategoryItemList = ({
   const handleCategoryButton = (cat) => {
     if (subCategory === cat) {
       changeSubCategory({ subCategory: null })
-      console.log("lksjdf")
     } else {
       changeSubCategory({ subCategory: cat })
     }

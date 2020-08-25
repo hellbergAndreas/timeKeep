@@ -30,7 +30,7 @@ const timeReducer = (state = INITIAL_STATE, action) => {
     case "ADD_CATEGORY":
       return {
         ...state,
-        [action.payload]: 0,
+        [action.payload.category]: { [action.payload.subCategory]: 0 },
       }
 
     default:

@@ -28,7 +28,9 @@ const Timer = ({
   }, [isRunning])
 
   const handleClick = () => {
-    startStop(!isRunning)
+    if (subCategory && activeCategory) {
+      startStop(!isRunning)
+    }
   }
   return (
     <div className={styles.timer}>

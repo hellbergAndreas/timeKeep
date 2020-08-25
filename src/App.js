@@ -13,7 +13,6 @@ function App() {
     <div className={styles.content}>
       <NavBar></NavBar>
       <CategoryDisplay></CategoryDisplay>
-      <AddCategoryCard></AddCategoryCard>
       <Timer></Timer>
     </div>
   )
