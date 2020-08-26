@@ -21,6 +21,7 @@ const CategoryItemList = ({
       {Object.keys(categorys[activeCategory]).map((subCat) => {
         return (
           <Button
+            key={subCat}
             canBeDeactivated={true}
             className={subCategory === subCat ? "active" : ""}
             click={() => handleCategoryButton(subCat)}

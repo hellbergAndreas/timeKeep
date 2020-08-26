@@ -5,6 +5,7 @@ import { addTime } from "../../redux/timeReducer/time.action"
 
 import styles from "./timer.module.css"
 import { startStop } from "../../redux/isRunningReducer/isRunning.action"
+import SessionTimeDisplay from "../SessionTimeDisplay/SessionTimeDisplay"
 
 const Timer = ({
   category: { subCategory, activeCategory },
@@ -13,17 +14,21 @@ const Timer = ({
   startStop,
 }) => {
   const [intervalId, setIntervalId] = useState(null)
+  const [sessionTime, setSessionTime] = useState({ sessionTime: 0 })
 
   useEffect(() => {
     if (isRunning) {
       setIntervalId(
-        setInterval(
-          () => addTime({ activeCategory, subCategory, time: 1 }),
-          1000
-        )
+        setInterval(() => {
+          addTime({ activeCategory, subCategory })
+          setSessionTime((prevState) => ({
+            sessionTime: prevState.sessionTime + 1,
+          }))
+        }, 1000)
       )
     } else {
       clearInterval(intervalId)
+      setSessionTime({ sessionTime: 0 })
     }
   }, [isRunning])
 
@@ -34,13 +39,12 @@ const Timer = ({
   }
   return (
     <div className={styles.timer}>
-      <Button
-        timer={true}
-        shape={ButtonShape.ROUND_LARGE}
-        click={() => handleClick()}
-      >
+      <Button shape={ButtonShape.ROUND_LARGE} click={() => handleClick()}>
         {isRunning ? "STOP" : "START"}
       </Button>
+      <SessionTimeDisplay
+        sessionTime={sessionTime.sessionTime}
+      ></SessionTimeDisplay>
     </div>
   )
 }

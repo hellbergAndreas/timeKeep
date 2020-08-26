@@ -45,9 +45,9 @@ const CategoryDisplay = ({
   const handleCategoryButton = (cat) => {
     if (activeCategory === cat) {
       changeCategory({ activeCategory: null })
-      changeSubCategory({ subCategory: null })
     } else {
       changeCategory({ activeCategory: cat })
+      changeSubCategory({ subCategory: null })
     }
   }
 
@@ -67,7 +67,7 @@ const CategoryDisplay = ({
       <div className={styles.categoryDisplay}>
         {Object.keys(time).map((cat) => {
           return (
-            <div>
+            <div key={cat}>
               <div>
                 <Button
                   canBeDeactivated={true}

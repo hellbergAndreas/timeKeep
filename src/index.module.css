@@ -3,16 +3,18 @@
   margin: 0;
 }
 
-body {
-}
+body {}
 
-code {
-}
+code {}
 
 .content {
   width: 1400px;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .addBtn {

@@ -1,17 +1,17 @@
 const INITIAL_STATE = {
   work: {
-    html: 0,
-    css: 0,
-    javascript: 0,
+    html: 1000,
+    css: 1000,
+    javascript: 2000,
   },
   music: {
-    harmonica: 0,
-    production: 0,
-    songwriting: 0,
+    harmonica: 1000,
+    production: 2000,
+    songwriting: 1000,
   },
   misc: {
-    youtube: 0,
-    web: 0,
+    youtube: 1000,
+    web: 8000,
   },
 }
 
@@ -20,6 +20,7 @@ const timeReducer = (state = INITIAL_STATE, action) => {
     case "ADD_TIME":
       return {
         ...state,
+
         [action.payload.activeCategory]: {
           ...state[action.payload.activeCategory],
           [action.payload.subCategory]:
