@@ -2,7 +2,7 @@ const INITIAL_STATE = {
   work: {
     html: 1000,
     css: 1000,
-    javascript: 2000,
+    javascript: 1000,
   },
   music: {
     harmonica: 1000,

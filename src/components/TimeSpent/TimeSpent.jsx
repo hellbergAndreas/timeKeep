@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 const TimeSpent = ({ time }) => {
   const [categoryValues, setCategoryValues] = useState({})
   const [totalValue, setTotalValue] = useState(0)
-
+  console.log(totalValue)
   useEffect(() => {
     Object.keys(time).forEach((key) => {
       setCategoryValues((prevState) => ({
@@ -12,7 +12,6 @@ const TimeSpent = ({ time }) => {
         [key]: 0,
       }))
       Object.values(time[key]).forEach((value) => {
-        console.log(value)
         setCategoryValues((prevState) => ({
           ...prevState,
           [key]: value + prevState[key],
@@ -22,7 +21,10 @@ const TimeSpent = ({ time }) => {
   }, [])
 
   useEffect(() => {
-    console.log(categoryValues)
+    Object.keys(categoryValues).map((key) => {
+      console.log(categoryValues[key])
+      setTotalValue((prevState) => prevState + categoryValues[key])
+    })
   }, [categoryValues])
   return <div></div>
 }
