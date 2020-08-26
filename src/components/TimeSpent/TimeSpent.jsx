@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import { secondsConverter } from "../../utils/secondsConverter"
+import DonutChart from "../DonutChart/DonutChart"
 
 const TimeSpent = ({ time }) => {
   const [categoryValues, setCategoryValues] = useState({})
   const [totalValue, setTotalValue] = useState(0)
 
-  console.log(categoryValues)
-  console.log(totalValue)
-
   useEffect(() => {
-    const timeDestruct = Object.entries(time)
     let sum = 0
-    timeDestruct.forEach((el) => {
+    Object.entries(time).forEach((el) => {
       let currentObject = Object.values(el[1]).reduce((acc, cur) => acc + cur)
       setCategoryValues((prevState) => ({
         ...prevState,
@@ -21,9 +18,14 @@ const TimeSpent = ({ time }) => {
       sum += currentObject
     })
     setTotalValue(sum)
-  }, [])
+  }, [time])
 
-  return <div></div>
+  return (
+    <DonutChart
+      totals={totalValue}
+      categoryValues={categoryValues}
+    ></DonutChart>
+  )
 }
 
 const mapStateToProps = (state) => ({

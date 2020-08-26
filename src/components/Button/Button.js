@@ -17,15 +17,22 @@ const Button = ({
   className,
   isRunning,
   canBeDeactivated,
+  mounted,
 }) => {
   return (
     <button
       style={style}
       onClick={() => click()}
       disabled={isRunning && canBeDeactivated}
-      className={cx(styles[className], styles.btn, styles[shape], {
-        [styles.disabled]: canBeDeactivated,
-      })}
+      className={cx(
+        mounted && styles.mounted,
+        styles[className],
+        styles.btn,
+        styles[shape],
+        {
+          [styles.disabled]: canBeDeactivated,
+        }
+      )}
     >
       {children}
     </button>
