@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
+import { secondsConverter } from "../../utils/secondsConverter"
 
 const TimeSpent = ({ time }) => {
   const [categoryValues, setCategoryValues] = useState({})
   const [totalValue, setTotalValue] = useState(0)
-  console.log(totalValue)
+  const [timeObject, setTimeObject] = useState({})
+  console.log(timeObject)
   useEffect(() => {
     Object.keys(time).forEach((key) => {
       setCategoryValues((prevState) => ({
@@ -26,6 +28,11 @@ const TimeSpent = ({ time }) => {
       setTotalValue((prevState) => prevState + categoryValues[key])
     })
   }, [categoryValues])
+
+  useEffect(() => {
+    setTimeObject(secondsConverter(totalValue))
+  }, [totalValue])
+
   return <div></div>
 }
 
