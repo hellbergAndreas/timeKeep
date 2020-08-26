@@ -5,33 +5,23 @@ import { secondsConverter } from "../../utils/secondsConverter"
 const TimeSpent = ({ time }) => {
   const [categoryValues, setCategoryValues] = useState({})
   const [totalValue, setTotalValue] = useState(0)
-  const [timeObject, setTimeObject] = useState({})
-  console.log(timeObject)
+
+  console.log(categoryValues)
+  console.log(totalValue)
+
   useEffect(() => {
-    Object.keys(time).forEach((key) => {
+    const timeDestruct = Object.entries(time)
+    let sum = 0
+    timeDestruct.forEach((el) => {
+      let currentObject = Object.values(el[1]).reduce((acc, cur) => acc + cur)
       setCategoryValues((prevState) => ({
         ...prevState,
-        [key]: 0,
+        [el[0]]: currentObject,
       }))
-      Object.values(time[key]).forEach((value) => {
-        setCategoryValues((prevState) => ({
-          ...prevState,
-          [key]: value + prevState[key],
-        }))
-      })
+      sum += currentObject
     })
+    setTotalValue(sum)
   }, [])
-
-  useEffect(() => {
-    Object.keys(categoryValues).map((key) => {
-      console.log(categoryValues[key])
-      setTotalValue((prevState) => prevState + categoryValues[key])
-    })
-  }, [categoryValues])
-
-  useEffect(() => {
-    setTimeObject(secondsConverter(totalValue))
-  }, [totalValue])
 
   return <div></div>
 }

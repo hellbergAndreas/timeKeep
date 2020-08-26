@@ -1,16 +1,16 @@
 const INITIAL_STATE = {
   work: {
-    html: 1,
+    html: 10,
     css: 0,
     javascript: 0,
   },
   music: {
-    harmonica: 3599,
+    harmonica: 10,
     production: 0,
-    songwriting: 0,
+    songwriting: 10,
   },
   misc: {
-    youtube: 0,
+    youtube: 10,
     web: 0,
   },
 }
