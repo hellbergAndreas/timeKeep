@@ -13,3 +13,10 @@ export const addFirebaseTimeObject = (time) => {
     payload: time,
   }
 }
+
+export const resetTimeObject = (time) => {
+  return {
+    type: "RESET_TIME_OBJECT",
+    payload: time,
+  }
+}

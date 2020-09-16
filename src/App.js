@@ -12,8 +12,14 @@ import Auth from "./AuthContext"
 import SignUp from "./pages/SignUp"
 import fireApp from "./firebase/firebase.utils"
 import StartPage from "./pages/StartPage"
+import { connect } from "react-redux"
+import { resetTimeObject } from "./redux/timeReducer/time.action"
 
-function App() {
+function App({ resetTimeObject, time }) {
+  const handleSignOut = () => {
+    resetTimeObject({})
+    fireApp.auth().signOut()
+  }
   return (
     <div className={styles.content}>
       <Auth>
@@ -34,9 +40,16 @@ function App() {
           </Route>
         </Switch>
       </Auth>
-      <button onClick={() => fireApp.auth().signOut()}>Sign out</button>
+      <button onClick={handleSignOut}>Sign out</button>
     </div>
   )
 }
 
-export default App
+const mapDispatchToProps = (dispatch) => ({
+  resetTimeObject: (time) => dispatch(resetTimeObject(time)),
+})
+const mapStateToProps = (state) => ({
+  time: state.time,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

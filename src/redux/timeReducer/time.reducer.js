@@ -24,6 +24,10 @@ const timeReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ...action.payload,
       }
+    case "RESET_TIME_OBJECT":
+      return {
+        ...action.payload,
+      }
 
     default:
       return state
