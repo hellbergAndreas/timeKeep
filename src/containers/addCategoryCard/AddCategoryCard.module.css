@@ -14,7 +14,7 @@
 }
 
 .cardMount {
-  height: 140px;
+  height: auto;
   box-shadow: inset 0px -2px 5px rgb(255, 255, 255), inset 0px 2px 5px rgba(0, 0, 0, 0.15);
   transition: all .4s linear;
 }

@@ -4,7 +4,7 @@ import { Line, Doughnut } from "react-chartjs-2"
 
 const DonutChart = ({ totals, categoryValues }) => {
   const [chartData, setChartData] = useState()
-  console.log(totals)
+
   const chart = () => {
     const keys = Object.keys(categoryValues)
     const values = Object.values(categoryValues)

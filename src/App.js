@@ -6,14 +6,35 @@ import CategoryDisplay from "./containers/categoryDisplay/CategoryDisplay"
 
 import Timer from "./components/Timer/timer"
 import TimeSpent from "./components/TimeSpent/TimeSpent"
+import LoginPage from "./pages/LoginPage"
+import { Link, Route, Switch } from "react-router-dom"
+import Auth from "./AuthContext"
+import SignUp from "./pages/SignUp"
+import fireApp from "./firebase/firebase.utils"
+import StartPage from "./pages/StartPage"
 
 function App() {
   return (
     <div className={styles.content}>
-      <NavBar></NavBar>
-      <CategoryDisplay></CategoryDisplay>
-      <Timer></Timer>
-      <TimeSpent></TimeSpent>
+      <Auth>
+        <Switch>
+          <Route path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <LoginPage></LoginPage>
+          </Route>
+          <Route path="/">
+            <StartPage>
+              <NavBar></NavBar>
+              <CategoryDisplay></CategoryDisplay>
+              <Timer></Timer>
+              <TimeSpent></TimeSpent>
+            </StartPage>
+          </Route>
+        </Switch>
+      </Auth>
+      <button onClick={() => fireApp.auth().signOut()}>Sign out</button>
     </div>
   )
 }

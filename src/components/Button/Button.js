@@ -18,11 +18,13 @@ const Button = ({
   isRunning,
   canBeDeactivated,
   mounted,
+  type,
 }) => {
   return (
     <button
+      type={type}
       style={style}
-      onClick={() => click()}
+      onClick={(e) => click(e)}
       disabled={isRunning && canBeDeactivated}
       className={cx(
         mounted && styles.mounted,
