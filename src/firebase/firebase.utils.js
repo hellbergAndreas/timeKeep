@@ -16,10 +16,14 @@ const fireApp = firebase.initializeApp(config)
 const db = fireApp.firestore()
 export { db }
 
-export const createTimeObject = (collectionKey, time, user) => {
-  db.collection(collectionKey).doc(user).set({
-    time,
-    id: user,
+export const fireBaseCreateTimeObject = (collectionKey, user, time) => {
+  db.collection(collectionKey).doc(user).set(time)
+}
+
+export const firebaseCreateUser = (user, userId) => {
+  db.collection("users").doc(user).set({
+    userEmail: user,
+    userId: userId,
   })
 }
 

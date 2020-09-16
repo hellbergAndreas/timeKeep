@@ -1,8 +1,12 @@
 import React, { useCallback } from "react"
 import { withRouter } from "react-router"
-import fireApp from "../firebase/firebase.utils"
+import fireApp, { firebaseCreateUser } from "../firebase/firebase.utils"
+import { useEffect } from "react"
+import { useContext } from "react"
+import { AuthContext } from "../AuthContext"
 
 const SignUp = ({ history }) => {
+  const { currentUser } = useContext(AuthContext)
   const handleSignUp = useCallback(
     async (event) => {
       event.preventDefault()
@@ -18,6 +22,10 @@ const SignUp = ({ history }) => {
     },
     [history]
   )
+  useEffect(() => {
+    console.log("setting user to db")
+    currentUser && firebaseCreateUser(currentUser.email, currentUser.uid)
+  }, [currentUser])
   return (
     <div>
       <h2>Sign up</h2>

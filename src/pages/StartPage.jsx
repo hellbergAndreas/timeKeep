@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { AuthContext } from "../AuthContext"
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import fireApp, { db } from "../firebase/firebase.utils"
+import fireApp, { db, firebaseCreateUser } from "../firebase/firebase.utils"
 
 const StartPage = ({ children }) => {
   const history = useHistory()
@@ -17,8 +17,14 @@ const StartPage = ({ children }) => {
 
   useEffect(() => {
     if (currentUser) {
-      //   const database = .getInstance()
-      //   console.log(database)
+      db.collection(`time`)
+        .doc(currentUser.uid)
+
+        .get()
+        .then((snapshot) => {
+          console.log(snapshot.data())
+        })
+        .catch((error) => console.log(error))
     }
   }, [])
 

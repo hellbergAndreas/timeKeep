@@ -5,7 +5,10 @@ import { addCategory } from "../../redux/timeReducer/time.action"
 import { connect } from "react-redux"
 import Button from "../../components/Button/Button"
 import cx from "classnames"
-import { createTimeObject } from "../../firebase/firebase.utils"
+import {
+  createTimeObject,
+  fireBaseCreateTimeObject,
+} from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
 
 const AddCategoryCard = ({ click, addCategory, time }) => {
@@ -56,8 +59,7 @@ const AddCategoryCard = ({ click, addCategory, time }) => {
     })
     setSubCategoryFormated(subCatObject)
 
-    console.log(time)
-    createTimeObject("time", time, currentUser.email)
+    fireBaseCreateTimeObject("time", currentUser.uid, time)
   }
 
   useEffect(() => {
