@@ -4,8 +4,10 @@ import { AuthContext } from "../AuthContext"
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import fireApp, { db, firebaseCreateUser } from "../firebase/firebase.utils"
+import { connect } from "react-redux"
+import { addFirebaseTimeObject } from "../redux/timeReducer/time.action"
 
-const StartPage = ({ children }) => {
+const StartPage = ({ children, addFirebaseTimeObject }) => {
   const history = useHistory()
   const { currentUser } = useContext(AuthContext)
 
@@ -22,7 +24,7 @@ const StartPage = ({ children }) => {
 
         .get()
         .then((snapshot) => {
-          console.log(snapshot.data())
+          addFirebaseTimeObject(snapshot.data())
         })
         .catch((error) => console.log(error))
     }
@@ -31,4 +33,8 @@ const StartPage = ({ children }) => {
   return <div>{children}</div>
 }
 
-export default StartPage
+const mapDispatchToProps = (dispatch) => ({
+  addFirebaseTimeObject: (time) => dispatch(addFirebaseTimeObject(time)),
+})
+
+export default connect(null, mapDispatchToProps)(StartPage)

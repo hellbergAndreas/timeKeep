@@ -17,7 +17,7 @@ const CategoryItemList = ({
   }
 
   return (
-    <div>
+    <div className={styles.subCatList}>
       {Object.keys(categorys[activeCategory]).map((subCat) => {
         return (
           <Button

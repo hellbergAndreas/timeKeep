@@ -19,6 +19,12 @@ const timeReducer = (state = INITIAL_STATE, action) => {
         [action.payload.category]: { ...action.payload.subCategory },
       }
 
+    case "ADD_FIREBASE_TIME_OBJECT":
+      return {
+        ...state,
+        ...action.payload,
+      }
+
     default:
       return state
   }

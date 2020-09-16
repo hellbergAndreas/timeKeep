@@ -8,10 +8,11 @@ import cx from "classnames"
 import {
   createTimeObject,
   fireBaseCreateTimeObject,
+  firebaseCreateTimeObject,
 } from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
 
-const AddCategoryCard = ({ click, addCategory, time }) => {
+const AddCategoryCard = ({ addCategory, time }) => {
   const [category, setCategory] = useState("")
   const [subCategory, setSubCategory] = useState()
   const [subCategoryFormated, setSubCategoryFormated] = useState(null)
@@ -59,7 +60,7 @@ const AddCategoryCard = ({ click, addCategory, time }) => {
     })
     setSubCategoryFormated(subCatObject)
 
-    fireBaseCreateTimeObject("time", currentUser.uid, time)
+    firebaseCreateTimeObject("time", currentUser.uid, time)
   }
 
   useEffect(() => {
