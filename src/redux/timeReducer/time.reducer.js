@@ -2,21 +2,18 @@ const INITIAL_STATE = {}
 
 const timeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "ADD_TIME":
-      console.log(state)
+    case "CREATE_ENTRIE":
+      const category = action.payload.activeCategory
+      const subCategory = action.payload.subCategory
+      const date = action.payload.date
+      const time = action.payload.time
+
+      state[category][subCategory].push({ date, time })
       return {
         ...state,
-
-        [action.payload.activeCategory]: {
-          ...state[action.payload.activeCategory],
-          [action.payload.subCategory]:
-            state[action.payload.activeCategory][action.payload.subCategory] +
-            1,
-        },
       }
+
     case "ADD_CATEGORY":
-      const category = action.payload.category
-      const subCategory = action.payload.subCategory
       const prevState = { ...state[category] }
 
       return {

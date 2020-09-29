@@ -26,19 +26,21 @@ export const firebaseDeleteCategory = (collectionKey, id, activeCategory) => {
     [activeCategory]: firebase.firestore.FieldValue.delete(),
   })
 }
-// export const firebaseUpdateTimeObject = (
-//   collectionKey,
-//   id,
-//   time,
-//   activeCategory,
-//   subCategory
-// ) => {
-//   db.collection(collectionKey)
-//     .doc(id)
-//     .update({
-//       ...time,
-//     })
-// }
+export const firebaseAddEntry = (
+  id,
+  collectionKey,
+  activeCategory,
+  subCategory,
+  subCatEntries,
+  entry
+) => {
+  console.log("adds time entry")
+  db.collection(collectionKey)
+    .doc(id)
+    .update({
+      [`${activeCategory}.${subCategory}`]: [...subCatEntries, entry],
+    })
+}
 export const firebaseCreateUser = (user, userId) => {
   db.collection("users").doc(user).set({
     userEmail: user,

@@ -3,13 +3,18 @@ import styles from "./DonutChart.module.css"
 import { Line, Doughnut } from "react-chartjs-2"
 import { secondsConverter } from "../../utils/secondsConverter"
 
-const DonutChart = ({ totals, categoryValues }) => {
+const DonutChart = ({
+  bigTotal,
+  activeCategoryTotal,
+  subCategoryTotal,
+  categoryValues,
+}) => {
   const [chartData, setChartData] = useState()
 
   const chart = () => {
     const keys = Object.keys(categoryValues)
     const values = Object.values(categoryValues)
-    console.log(keys)
+
     setChartData({
       labels: keys,
       datasets: [
@@ -31,9 +36,10 @@ const DonutChart = ({ totals, categoryValues }) => {
   }
   useEffect(() => {
     chart()
-  }, [totals, categoryValues])
-  const SessionTimeDisplay = () => {
-    let { hours, minutes, seconds } = secondsConverter(totals)
+  }, [bigTotal, categoryValues])
+
+  const SessionTimeDisplay = (ss) => {
+    let { hours, minutes, seconds } = secondsConverter(ss)
     const lessThan10 = (time) => {
       if (time < 10) {
         return "0"
@@ -50,7 +56,11 @@ const DonutChart = ({ totals, categoryValues }) => {
   }
   return (
     <div className={styles.deNut}>
-      <div>{SessionTimeDisplay()}</div>
+      <div>{SessionTimeDisplay(bigTotal)}</div>
+      <div>
+        {activeCategoryTotal > 0 && SessionTimeDisplay(activeCategoryTotal)}
+      </div>
+      <div>{subCategoryTotal > 0 && SessionTimeDisplay(subCategoryTotal)}</div>
       <Doughnut data={chartData}></Doughnut>
     </div>
   )

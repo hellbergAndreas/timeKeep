@@ -23,10 +23,7 @@ const objec = {
   },
 
   drawingProportions: {
-    proportion: [
-      { date: "pre", time: 2727 },
-      { date: "pre", time: 23 },
-    ],
+    proportion: [{ date: "pre", time: 2727 }],
   },
   drawingContours: {
     "block in": [{ date: "pre", time: 3153 }],

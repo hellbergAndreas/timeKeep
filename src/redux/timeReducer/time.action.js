@@ -29,3 +29,8 @@ export const removeSubCategory = (category) => ({
   type: "REMOVE_SUBCATEGORY",
   payload: category,
 })
+
+export const createEntrie = (entrie) => ({
+  type: "CREATE_ENTRIE",
+  payload: entrie,
+})

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
+import fireApp from "../../firebase/firebase.utils"
 
 import DonutChart from "../DonutChart/DonutChart"
 
@@ -7,9 +8,12 @@ const TimeSpent = ({ time, activeCategory, subCategory }) => {
   const [categoryValues, setCategoryValues] = useState({})
   const [subCategoryValues, setSubCategoryValues] = useState({})
 
-  const [totalValue, setTotalValue] = useState(0)
+  const [bigTotal, setBigTotal] = useState(0)
+  const [subCategoryTotal, setSubCategoryTotal] = useState(0)
+  const [activeCategoryTotal, setActiveCategoryTotal] = useState(0)
 
   useEffect(() => {
+    // setting each categorys total
     const categorys = [...Object.keys(time)]
     categorys.forEach((category) => {
       let categoryTotal = 0
@@ -27,6 +31,8 @@ const TimeSpent = ({ time, activeCategory, subCategory }) => {
   }, [subCategoryValues])
 
   useEffect(() => {
+    // calculates total of enter time object
+    // and calculates each subCategorys total value
     let total = 0
     const categorys = [...Object.keys(time)]
 
@@ -49,14 +55,40 @@ const TimeSpent = ({ time, activeCategory, subCategory }) => {
         })
       }, {})
     })
-    setTotalValue(total)
-  }, [time])
+    setBigTotal(total)
+  }, [])
 
+  useEffect(() => {
+    // sets total to active-categorys total
+    let total = 0
+    setCategoryValues({})
+    activeCategory &&
+      Object.keys(time[activeCategory]).forEach((subCategory) => {
+        total += subCategoryValues[subCategory]
+
+        setCategoryValues((prevState) => {
+          return {
+            ...prevState,
+            [subCategory]: subCategoryValues[subCategory],
+          }
+        })
+      })
+
+    setActiveCategoryTotal(total)
+  }, [activeCategory])
+
+  useEffect(() => {
+    setSubCategoryTotal(subCategoryValues[subCategory])
+  }, [subCategory])
   return (
-    <DonutChart
-      totals={totalValue}
-      categoryValues={categoryValues}
-    ></DonutChart>
+    <div>
+      <DonutChart
+        bigTotal={bigTotal}
+        activeCategoryTotal={activeCategoryTotal}
+        subCategoryTotal={subCategoryTotal}
+        categoryValues={categoryValues}
+      ></DonutChart>
+    </div>
   )
 }
 
