@@ -7,7 +7,7 @@ import styles from "./timer.module.css"
 import { startStop } from "../../redux/isRunningReducer/isRunning.action"
 import SessionTimeDisplay from "../SessionTimeDisplay/SessionTimeDisplay"
 import {
-  fireBaseCreateTimeObject,
+  firebaseCreateTimeObject,
   firebaseUpdateTimeObject,
 } from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
@@ -20,10 +20,13 @@ const Timer = ({
   time,
 }) => {
   const [intervalId, setIntervalId] = useState(null)
-  const [intervalId2, setIntervalId2] = useState(null)
   const [sessionTime, setSessionTime] = useState({ sessionTime: 0 })
   const { currentUser } = useContext(AuthContext)
   const [startUp, setStartup] = useState(false)
+
+  const [subCatTotal, setSubCatTotal] = useState({})
+
+  useEffect(() => {}, [time])
 
   useEffect(() => {
     if (isRunning) {
@@ -42,14 +45,13 @@ const Timer = ({
 
     if (currentUser && startUp) {
       console.log("updating firebase")
-      firebaseUpdateTimeObject(
+      firebaseCreateTimeObject(
         "time",
         currentUser.uid,
         time,
         activeCategory,
         subCategory
       )
-      // firebaseCreateTimeObject("time", currentUser.uid, time)
     }
     setStartup(true)
   }, [isRunning])

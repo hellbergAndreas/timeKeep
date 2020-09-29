@@ -7,6 +7,7 @@ import { AuthContext } from "../AuthContext"
 
 const SignUp = ({ history }) => {
   const { currentUser } = useContext(AuthContext)
+
   const handleSignUp = useCallback(
     async (event) => {
       event.preventDefault()
@@ -23,7 +24,6 @@ const SignUp = ({ history }) => {
     [history]
   )
   useEffect(() => {
-    console.log("setting user to db")
     currentUser && firebaseCreateUser(currentUser.email, currentUser.uid)
   }, [currentUser])
   return (

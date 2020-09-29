@@ -5,16 +5,12 @@ import { addCategory } from "../../redux/timeReducer/time.action"
 import { connect } from "react-redux"
 import Button from "../../components/Button/Button"
 import cx from "classnames"
-import {
-  createTimeObject,
-  fireBaseCreateTimeObject,
-  firebaseCreateTimeObject,
-} from "../../firebase/firebase.utils"
+import { firebaseCreateTimeObject } from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
 
-const AddCategoryCard = ({ addCategory, time }) => {
+const AddCategoryCard = ({ addCategory, time, edit }) => {
   const [category, setCategory] = useState("")
-  const [subCategory, setSubCategory] = useState()
+  const [subCategory, setSubCategory] = useState("")
   const [subCategoryFormated, setSubCategoryFormated] = useState(null)
   const [cardMount, setCardMount] = useState(null)
   const [subCatInputs, setSubCatInputs] = useState([""])
@@ -43,7 +39,6 @@ const AddCategoryCard = ({ addCategory, time }) => {
       <Input
         name={index}
         mounted={cardMount}
-        inputValue={subCategory}
         handleChange={handleSubCategory}
       ></Input>
     )
@@ -53,7 +48,6 @@ const AddCategoryCard = ({ addCategory, time }) => {
     e.preventDefault()
     let subCatObject = {}
     // creating the right format for subcategorys
-    // from {
 
     Object.keys(subCategory).forEach((cat) => {
       subCatObject = { ...subCatObject, ...subCategory[cat] }

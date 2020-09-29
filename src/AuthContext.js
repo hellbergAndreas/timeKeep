@@ -3,6 +3,7 @@ import fireApp from "./firebase/firebase.utils"
 
 export const AuthContext = createContext()
 
+// auth wraps the entire app giving currentUser as context
 const Auth = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
 

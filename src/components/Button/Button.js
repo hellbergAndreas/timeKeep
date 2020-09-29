@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 
 export const ButtonShape = {
   ROUND_SMALL: "roundSmall",
+  ROUND_SMALLER: "roundSmaller",
   ROUND_LARGE: "roundLarge",
   RECT_SMALL: "rectSmall",
   RECT_LARGE: "rectLarge",
@@ -19,9 +20,11 @@ const Button = ({
   canBeDeactivated,
   mounted,
   type,
+  name,
 }) => {
   return (
     <button
+      name={name}
       type={type}
       style={style}
       onClick={(e) => click(e)}

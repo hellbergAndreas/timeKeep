@@ -9,6 +9,7 @@ import Button, { ButtonShape } from "../../components/Button/Button"
 import CategoryItemList from "../CategoryItemList/CategoryItemList"
 import Plus from "../../components/plus/Plus"
 import AddCategoryCard from "../addCategoryCard/AddCategoryCard"
+import { removeSubCategory } from "../../redux/timeReducer/time.action"
 
 const CategoryDisplay = ({
   changeCategory,
@@ -18,12 +19,23 @@ const CategoryDisplay = ({
   time,
 }) => {
   const [hidden, setHidden] = useState(true)
+  const [edit, setEdit] = useState(null)
+
+  const handleEdit = (e) => {}
 
   const renderCategoryList = (cat) => {
     if (cat === activeCategory) {
       return (
         <div className={styles.subCategoryDisplay}>
+          <Button
+            name={activeCategory}
+            click={(e) => handleEdit(e)}
+            shape={ButtonShape.ROUND_SMALLER}
+          >
+            <Plus />
+          </Button>
           <CategoryItemList
+            removeSubcategory={removeSubCategory}
             activeCategory={activeCategory}
             subCategory={subCategory}
             categorys={time}

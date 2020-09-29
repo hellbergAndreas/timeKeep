@@ -6,6 +6,10 @@ export const addCategory = (category) => ({
   type: "ADD_CATEGORY",
   payload: category,
 })
+export const removeCategory = (activeCategory) => ({
+  type: "REMOVE_CATEGORY",
+  payload: activeCategory,
+})
 
 export const addFirebaseTimeObject = (time) => {
   return {
@@ -20,3 +24,8 @@ export const resetTimeObject = (time) => {
     payload: time,
   }
 }
+
+export const removeSubCategory = (category) => ({
+  type: "REMOVE_SUBCATEGORY",
+  payload: category,
+})

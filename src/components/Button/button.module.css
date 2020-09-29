@@ -54,6 +54,16 @@ button:focus {
   border-radius: 50%;
 }
 
+.roundSmaller {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+}
+
+.roundSmaller:after {
+  border-radius: 50%;
+}
+
 .roundLarge {
   height: 80px;
   width: 80px;
@@ -65,8 +75,8 @@ button:focus {
 }
 
 .rectSmall {
-  height: 30px;
-  width: 50px;
+  height: 45px;
+  width: 75px;
   border-radius: 8px;
 }
 

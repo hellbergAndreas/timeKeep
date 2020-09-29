@@ -17,8 +17,7 @@
   width: 100%;
 }
 
-.horizontal,
-.vertical {
+.horizontal, .vertical {
   border-radius: 5px;
   position: absolute;
   background-color: rgb(42, 217, 89);
@@ -32,7 +31,12 @@
   height: 90%;
 }
 
-.verticalPressed,
-.horizontalPressed {
+.verticalPressed, .horizontalPressed {
   background-color: rgb(34, 158, 67);
+}
+
+.minusVertical {
+  border-radius: 5px;
+  position: absolute;
+  background-color: rgb(217, 42, 42);
 }

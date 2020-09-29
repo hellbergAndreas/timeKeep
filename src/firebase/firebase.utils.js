@@ -19,19 +19,26 @@ export { db }
 export const firebaseCreateTimeObject = (collectionKey, user, time) => {
   db.collection(collectionKey).doc(user).set(time)
 }
-export const firebaseUpdateTimeObject = (
-  collectionKey,
-  id,
-  time,
-  activeCategory,
-  subCategory
-) => {
-  db.collection(collectionKey)
-    .doc(id)
-    .update({
-      ...time,
-    })
+
+export const firebaseDeleteCategory = (collectionKey, id, activeCategory) => {
+  const categoryRef = db.collection(collectionKey).doc(id)
+  categoryRef.update({
+    [activeCategory]: firebase.firestore.FieldValue.delete(),
+  })
 }
+// export const firebaseUpdateTimeObject = (
+//   collectionKey,
+//   id,
+//   time,
+//   activeCategory,
+//   subCategory
+// ) => {
+//   db.collection(collectionKey)
+//     .doc(id)
+//     .update({
+//       ...time,
+//     })
+// }
 export const firebaseCreateUser = (user, userId) => {
   db.collection("users").doc(user).set({
     userEmail: user,
