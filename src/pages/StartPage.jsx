@@ -35,6 +35,7 @@ const objec = {
 const StartPage = ({ children, addFirebaseTimeObject }) => {
   const history = useHistory()
   const { currentUser } = useContext(AuthContext)
+  const { isRunning } = useContext(AuthContext)
 
   useEffect(() => {
     if (currentUser === null) {
@@ -52,8 +53,11 @@ const StartPage = ({ children, addFirebaseTimeObject }) => {
         })
         .catch((error) => console.log(error))
     }
-    // currentUser && firebaseCreateTimeObject("time", currentUser.uid, objec)
   }, [])
+
+  // useEffect(() => {
+  //   currentUser && firebaseCreateTimeObject("time", currentUser.uid, objec)
+  // }, [isRunning])
 
   return <div>{children}</div>
 }

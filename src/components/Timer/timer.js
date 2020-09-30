@@ -3,7 +3,7 @@ import Button, { ButtonShape } from "../Button/Button"
 import { connect } from "react-redux"
 
 import styles from "./timer.module.css"
-import { startStop } from "../../redux/isRunningReducer/isRunning.action"
+
 import SessionTimeDisplay from "../SessionTimeDisplay/SessionTimeDisplay"
 import { firebaseAddEntry } from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
@@ -11,14 +11,13 @@ import { AuthContext } from "../../AuthContext"
 const Timer = ({
   category: { subCategory, activeCategory },
 
-  isRunning,
-  startStop,
   time,
 }) => {
   const [intervalId, setIntervalId] = useState(null)
   const [sessionTime, setSessionTime] = useState({ sessionTime: 0 })
   const { currentUser } = useContext(AuthContext)
   const { entryContext, setEntry } = useContext(AuthContext)
+  const { isRunning, setIsRunning } = useContext(AuthContext)
   const [startUp, setStartup] = useState(false)
 
   const sendEntryToFirebase = () => {
@@ -55,13 +54,11 @@ const Timer = ({
       clearInterval(intervalId)
       setSessionTime({ sessionTime: 0 })
     }
-
-    setStartup(true)
   }, [isRunning])
 
   const handleClick = () => {
     if (subCategory && activeCategory) {
-      startStop(!isRunning)
+      setIsRunning(!isRunning)
     }
     if (!isRunning) {
       const date = new Date()
@@ -82,12 +79,9 @@ const Timer = ({
   )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  startStop: (isRunning) => dispatch(startStop(isRunning)),
-})
 const mapStateToProps = (state) => ({
   category: state.category,
   isRunning: state.isRunning.isRunning,
   time: state.time,
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Timer)
+export default connect(mapStateToProps)(Timer)

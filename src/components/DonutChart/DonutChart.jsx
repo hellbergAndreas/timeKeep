@@ -3,40 +3,37 @@ import styles from "./DonutChart.module.css"
 import { Line, Doughnut } from "react-chartjs-2"
 import { secondsConverter } from "../../utils/secondsConverter"
 
-const DonutChart = ({
-  bigTotal,
-  activeCategoryTotal,
-  subCategoryTotal,
-  categoryValues,
-}) => {
+const DonutChart = ({ chartValues, entryTime }) => {
   const [chartData, setChartData] = useState()
 
   const chart = () => {
-    const keys = Object.keys(categoryValues)
-    const values = Object.values(categoryValues)
+    if (chartValues) {
+      const keys = Object.keys(chartValues)
+      const values = Object.values(chartValues)
 
-    setChartData({
-      labels: keys,
-      datasets: [
-        {
-          label: "time spent",
-          data: values,
-          backgroundColor: [
-            "rgba(38, 38, 197, 0.479)",
-            "rgba(202, 32, 32, 0.424)",
-            "rgba(255, 193, 49, 0.402)",
-            "rgba(155, 123, 419, 0.402)",
-            "rgba(205, 113, 149, 0.402)",
-            "rgba(255, 13, 4, 0.402)",
-          ],
-          bordeWidth: 4,
-        },
-      ],
-    })
+      setChartData({
+        labels: keys,
+        datasets: [
+          {
+            label: "time spent",
+            data: values,
+            backgroundColor: [
+              "rgba(38, 38, 197, 0.479)",
+              "rgba(202, 32, 32, 0.424)",
+              "rgba(255, 193, 49, 0.402)",
+              "rgba(155, 123, 419, 0.402)",
+              "rgba(205, 113, 149, 0.402)",
+              "rgba(255, 13, 4, 0.402)",
+            ],
+            bordeWidth: 4,
+          },
+        ],
+      })
+    }
   }
   useEffect(() => {
     chart()
-  }, [bigTotal, categoryValues])
+  }, [chartValues, entryTime])
 
   const SessionTimeDisplay = (ss) => {
     let { hours, minutes, seconds } = secondsConverter(ss)
@@ -56,11 +53,9 @@ const DonutChart = ({
   }
   return (
     <div className={styles.deNut}>
-      <div>{SessionTimeDisplay(bigTotal)}</div>
-      <div>
-        {activeCategoryTotal > 0 && SessionTimeDisplay(activeCategoryTotal)}
-      </div>
-      <div>{subCategoryTotal > 0 && SessionTimeDisplay(subCategoryTotal)}</div>
+      <div>{SessionTimeDisplay(+entryTime)}</div>
+      <div>{SessionTimeDisplay(+entryTime)}</div>
+      <div>{SessionTimeDisplay(+entryTime)}</div>
       <Doughnut data={chartData}></Doughnut>
     </div>
   )

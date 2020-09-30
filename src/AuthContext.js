@@ -7,6 +7,7 @@ export const AuthContext = createContext()
 const Auth = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [entryContext, setEntry] = useState({ time: 0 })
+  const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
     fireApp.auth().onAuthStateChanged(setCurrentUser)
@@ -14,7 +15,14 @@ const Auth = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, setCurrentUser, entryContext, setEntry }}
+      value={{
+        currentUser,
+        setCurrentUser,
+        entryContext,
+        setEntry,
+        isRunning,
+        setIsRunning,
+      }}
     >
       {children}
     </AuthContext.Provider>
