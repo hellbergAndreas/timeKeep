@@ -12,20 +12,20 @@ import { connect } from "react-redux"
 import { addFirebaseTimeObject } from "../redux/timeReducer/time.action"
 
 const objec = {
-  drawingFormAndShapes: {
+  "form and shapes": {
     "cube slices": [{ date: "pre", time: 4773 }],
     "handles on cups": [{ data: "pre", time: 7858 }],
     "volumetric stills": [{ data: "pre", time: 1615 }],
   },
-  drawingBasics: {
+  basics: {
     cubes: [{ date: "pre", time: 1290 }],
     spheres: [{ date: "pre", time: 1222 }],
   },
 
-  drawingProportions: {
+  proportions: {
     proportion: [{ date: "pre", time: 2727 }],
   },
-  drawingContours: {
+  contours: {
     "block in": [{ date: "pre", time: 3153 }],
     "cross-contour": [{ date: "pre", time: 5297 }],
     foreshortening: [{ date: "pre", time: 4228 }],

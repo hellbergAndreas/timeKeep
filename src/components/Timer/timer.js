@@ -5,11 +5,7 @@ import { connect } from "react-redux"
 import styles from "./timer.module.css"
 import { startStop } from "../../redux/isRunningReducer/isRunning.action"
 import SessionTimeDisplay from "../SessionTimeDisplay/SessionTimeDisplay"
-import {
-  firebaseAddEntry,
-  firebaseCreateTimeObject,
-  firebaseUpdateTimeObject,
-} from "../../firebase/firebase.utils"
+import { firebaseAddEntry } from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
 
 const Timer = ({
@@ -18,25 +14,23 @@ const Timer = ({
   isRunning,
   startStop,
   time,
-  createEntry,
 }) => {
   const [intervalId, setIntervalId] = useState(null)
   const [sessionTime, setSessionTime] = useState({ sessionTime: 0 })
   const { currentUser } = useContext(AuthContext)
-  const [entry, setEntry] = useState({})
+  const { entryContext, setEntry } = useContext(AuthContext)
   const [startUp, setStartup] = useState(false)
 
   const sendEntryToFirebase = () => {
     const subCatEntries = time[activeCategory][subCategory]
-    console.log(subCatEntries)
-    console.log(entry)
+
     firebaseAddEntry(
       currentUser.uid,
       "time",
       activeCategory,
       subCategory,
       subCatEntries,
-      entry
+      entryContext
     )
     setEntry({})
   }

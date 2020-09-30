@@ -5,7 +5,10 @@ import { addCategory } from "../../redux/timeReducer/time.action"
 import { connect } from "react-redux"
 import Button from "../../components/Button/Button"
 import cx from "classnames"
-import { firebaseCreateTimeObject } from "../../firebase/firebase.utils"
+import {
+  firebaseAddCategory,
+  firebaseCreateTimeObject,
+} from "../../firebase/firebase.utils"
 import { AuthContext } from "../../AuthContext"
 
 const AddCategoryCard = ({ addCategory, time, edit }) => {
@@ -29,7 +32,7 @@ const AddCategoryCard = ({ addCategory, time, edit }) => {
     setSubCategory((prevState) => {
       return {
         ...prevState,
-        [name]: { [value]: 0 },
+        [name]: { [value]: [{ date: new Date(), time: 0 }] },
       }
     })
   }
@@ -47,19 +50,16 @@ const AddCategoryCard = ({ addCategory, time, edit }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     let subCatObject = {}
-    // creating the right format for subcategorys
-
     Object.keys(subCategory).forEach((cat) => {
       subCatObject = { ...subCatObject, ...subCategory[cat] }
     })
+    setSubCategory(subCatObject)
     setSubCategoryFormated(subCatObject)
-
-    firebaseCreateTimeObject("time", currentUser.uid, time)
   }
 
   useEffect(() => {
     subCategoryFormated &&
-      addCategory({ category, subCategory: subCategoryFormated })
+      firebaseAddCategory(currentUser.uid, "time", category, subCategory)
   }, [subCategoryFormated])
 
   return (
