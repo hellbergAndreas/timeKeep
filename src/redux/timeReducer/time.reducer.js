@@ -6,7 +6,6 @@ const timeReducer = (state = INITIAL_STATE, action) => {
       const subCategory = action.payload.subCategory
       const category = action.payload.activeCategory
       const prevState = { ...state[category] }
-
       return {
         ...state,
         [action.payload.category]: { ...prevState, ...subCategory },

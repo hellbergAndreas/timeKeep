@@ -19,7 +19,6 @@ const CategoryDisplay = ({
   time,
 }) => {
   const [hidden, setHidden] = useState(true)
-  const [edit, setEdit] = useState(null)
 
   const handleEdit = (e) => {}
 

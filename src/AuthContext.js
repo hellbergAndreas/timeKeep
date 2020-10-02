@@ -7,6 +7,7 @@ export const AuthContext = createContext()
 const Auth = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [entryContext, setEntry] = useState({ time: 0 })
+  const [sessionTime, setSessionTime] = useState({ time: 0 })
   const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
@@ -22,6 +23,8 @@ const Auth = ({ children }) => {
         setEntry,
         isRunning,
         setIsRunning,
+        sessionTime,
+        setSessionTime,
       }}
     >
       {children}

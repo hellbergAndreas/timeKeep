@@ -14,7 +14,7 @@ const Timer = ({
   time,
 }) => {
   const [intervalId, setIntervalId] = useState(null)
-  const [sessionTime, setSessionTime] = useState({ sessionTime: 0 })
+  const { sessionTime, setSessionTime } = useContext(AuthContext)
   const { currentUser } = useContext(AuthContext)
   const { entryContext, setEntry } = useContext(AuthContext)
   const { isRunning, setIsRunning } = useContext(AuthContext)
@@ -22,16 +22,17 @@ const Timer = ({
 
   const sendEntryToFirebase = () => {
     const subCatEntries = time[activeCategory][subCategory]
-
+    const entry = entryContext
+    entry.to = new Date()
+    entry.time = (entry.to - entry.date) / 1000
     firebaseAddEntry(
       currentUser.uid,
       "time",
       activeCategory,
       subCategory,
       subCatEntries,
-      entryContext
+      entry
     )
-    setEntry({})
   }
   useEffect(() => {}, [time])
 
@@ -39,20 +40,14 @@ const Timer = ({
     if (isRunning) {
       setIntervalId(
         setInterval(() => {
-          setEntry((prevState) => {
-            return {
-              ...prevState,
-              time: prevState.time + 1,
-            }
-          })
           setSessionTime((prevState) => ({
-            sessionTime: prevState.sessionTime + 1,
+            time: prevState.time + 1,
           }))
         }, 1000)
       )
     } else {
       clearInterval(intervalId)
-      setSessionTime({ sessionTime: 0 })
+      setSessionTime({ time: 0 })
     }
   }, [isRunning])
 
@@ -72,9 +67,7 @@ const Timer = ({
       <Button shape={ButtonShape.ROUND_LARGE} click={() => handleClick()}>
         {isRunning ? "STOP" : "START"}
       </Button>
-      <SessionTimeDisplay
-        sessionTime={sessionTime.sessionTime}
-      ></SessionTimeDisplay>
+      <SessionTimeDisplay sessionTime={sessionTime.time}></SessionTimeDisplay>
     </div>
   )
 }

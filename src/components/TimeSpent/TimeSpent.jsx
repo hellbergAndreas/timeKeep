@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useContext } from "react"
 import { connect } from "react-redux"
-import { AuthContext } from "../../AuthContext"
+import Auth, { AuthContext } from "../../AuthContext"
 import fireApp from "../../firebase/firebase.utils"
 
 import DonutChart from "../DonutChart/DonutChart"
@@ -10,15 +10,16 @@ const TimeSpent = ({ time, activeCategory, subCategory }) => {
   const { entryContext } = useContext(AuthContext)
   const [categoryTotals, setCategoryTotals] = useState({})
   const [subCategoryTotals, setSubCategoryTotals] = useState({})
+  const { sessionTime } = useContext(AuthContext)
   const [total, setTotal] = useState(0)
-  console.log(subCategoryTotals)
+
+  // console.log(activeCategory && subCategoryTotals[activeCategory][subCategory])
+
   useEffect(() => {
     const categorys = Object.keys(time)
-    // const drawing = {subCat1: 100, subCat2: 200}
     categorys.map((category) => {
       let total = 0
       Object.entries(time[category]).forEach((subCategory) => {
-        console.log(subCategory[0])
         let subCatTotal = 0
         subCategory[1].forEach((entry) => {
           total += entry.time
@@ -33,7 +34,6 @@ const TimeSpent = ({ time, activeCategory, subCategory }) => {
             }
           })
         })
-
         setCategoryTotals((prevState) => {
           return {
             ...prevState,
@@ -44,15 +44,58 @@ const TimeSpent = ({ time, activeCategory, subCategory }) => {
     })
   }, [time])
 
-  useEffect(() => {}, [activeCategory])
+  useEffect(() => {
+    let total = 0
+    Object.values(categoryTotals).forEach((value) => {
+      total += value
+    })
+    setTotal(total)
+  }, [sessionTime, categoryTotals])
+  console.log(sessionTime)
+  useEffect(() => {
+    // updating each subcategorys total
+
+    if (activeCategory && sessionTime.time > 0) {
+      let total = subCategoryTotals[activeCategory][subCategory] + 1
+
+      setSubCategoryTotals((prevState) => {
+        return {
+          ...prevState,
+          [activeCategory]: {
+            ...prevState[activeCategory],
+            [subCategory]: total,
+          },
+        }
+      })
+    }
+  }, [sessionTime])
+
+  useEffect(() => {
+    // updates every categorys total
+    if (activeCategory && subCategory && sessionTime.time > 0) {
+      let total = categoryTotals[activeCategory] + 1
+
+      setCategoryTotals((prevState) => {
+        return {
+          ...prevState,
+          [activeCategory]: total,
+        }
+      })
+    }
+  }, [sessionTime])
 
   return (
     <div>
       <DonutChart
-        entryTime={entryContext.time > 0 && entryContext.time}
-        bigTotal={1}
-        activeCategoryTotal={1}
-        subCategoryTotal={1}
+        total={total}
+        categoryTotal={activeCategory && categoryTotals[activeCategory]}
+        subCatTotal={
+          activeCategory &&
+          subCategory &&
+          subCategoryTotals[activeCategory][subCategory]
+        }
+        entryTime={sessionTime.time > 0 && sessionTime.time}
+        categoryTotals={categoryTotals}
         chartValues={
           activeCategory ? subCategoryTotals[activeCategory] : categoryTotals
         }
